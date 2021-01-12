@@ -23,7 +23,7 @@ if [ $# -lt 1 ]; then
 fi
 
 ref_file="../video/ref.mp4"
-encode_file="../video/encode_file.mp4"
+encoded_file="../video/encoded_output.mp4"
 width=3840
 height=2160
 framerate=29.97
@@ -80,20 +80,21 @@ fi
 
 if [ $# -eq 1 ]; then
   # yuvファイルをエンコードする
-  ffmpeg -y -f rawvideo -pix_fmt yuv420p -s:v "$width"x"$height" -r $framerate -i $inputfile -c:v $codec $encode_file
-  #echo ffmpeg -y -f rawvideo -pix_fmt yuv420p -s:v "$width"x"$height" -r $framerate -i $inputfile -c:v $codec $encode_file
+  ffmpeg -y -f rawvideo -pix_fmt yuv420p -s:v "$width"x"$height" -r $framerate -i $inputfile -c:v $codec $encoded_file
+  #echo ffmpeg -y -f rawvideo -pix_fmt yuv420p -s:v "$width"x"$height" -r $framerate -i $inputfile -c:v $codec $encoded_file
 else
-  encode_file=$2
+  encoded_file=$2
 fi
 
 DATE=`date "+%Y%m%d-%H:%M:%S"`
 echo $DATE
+mkdir -p ../log
 
 # psnr & ssim
 echo "PSNR Process"
-ffmpeg -i $ref_file -i $encode_file  -filter_complex psnr=../log/psnr_stats.log -an -f null - >& ../log/psnr_avg_$DATE.log      ## stats fileにはなぜか変数DATEを付け加えるとerror
+ffmpeg -i $ref_file -i $encoded_file  -filter_complex psnr=../log/psnr_stats.log -an -f null - >& ../log/psnr_avg_$DATE.log      ## stats fileにはなぜか変数DATEを付け加えるとerror
 echo "SSIM Process"
-ffmpeg -i $ref_file -i $encode_file  -filter_complex ssim=../log/ssim_stats.log -an -f null - >& ../log/ssim_avg_$DATE.log
+ffmpeg -i $ref_file -i $encoded_file  -filter_complex ssim=../log/ssim_stats.log -an -f null - >& ../log/ssim_avg_$DATE.log
 
 mv ../log/ssim_stats.log ../log/ssim_stats_$DATE.log
 mv ../log/psnr_stats.log ../log/psnr_stats_$DATE.log
