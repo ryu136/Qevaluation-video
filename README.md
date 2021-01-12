@@ -1,6 +1,6 @@
 # Qevaluation-video
 
-# location of source code
+## About source code
 src/
 * exe.sh : available code
 * exe_v1.0.1.sh : not available code
