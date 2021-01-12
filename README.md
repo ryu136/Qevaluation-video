@@ -1,4 +1,4 @@
-# uplink
+# Qevaluation-video
 
 # location of source code
 src/
