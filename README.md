@@ -13,13 +13,11 @@ exe.sh YUVData
 
 * YUVデータと圧縮後のデータがある場合
 ```
-cd src/
 exe.sh YUVData ../video/encoded_output.mp4
 ```
 
 * refデータと圧縮後のデータがある場合
 ```
-cd src/
 exe.sh ../video/ref.mp4 ../video/encoded_output.mp4
 ```
 
