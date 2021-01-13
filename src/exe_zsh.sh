@@ -10,6 +10,7 @@ Usage: $(basename "$0") [option] YUVfile (EncodedFile)
   -r VALUE    Frame rate
   -c String   Used codec by encoding (libx264, hevc, libvpx-vp9, {libaom-av1})
 EOM
+lib
   exit 2
 }
 
@@ -59,11 +60,11 @@ shift `expr $OPTIND - 1`
 inputfile=$1
 
 ###  info
-echo -e "width: $width, height: $height, framerate: $framerate, codec: $codec\n"
+echo "width: $width, height: $height, framerate: $framerate, codec: $codec\n"
 echo "### Threshold ###"
 echo "PSNR: $psnr_th"
 echo "SSIM: $ssim_th"
-echo -e "#################\n"
+echo "#################\n"
 ###  
 
 #inputfileの拡張子を調べる
@@ -102,7 +103,7 @@ mv ../log/psnr_stats.log ../log/psnr_stats_$DATE.log
 ## result of verfication
 log=`tail -n1 ../log/psnr_avg_$DATE.log`
 list=(${log//,/ })
-echo -e "# PSNR #\n${list[7]}"
+echo "# PSNR #\n${list[7]}"
 arr=( `echo ${list[7]} | tr -s ':' ' '`)
 
 result=`echo "${arr[1]} > $psnr_th" | bc`
@@ -115,7 +116,7 @@ fi
 
 log=`tail -n1 ../log/ssim_avg_$DATE.log`
 list=(${log//,/ })
-echo -e "# SSIM #\n${list[10]}"
+echo "# SSIM #\n${list[10]}"
 arr=( `echo ${list[10]} | tr -s ':' ' '`)
 
 result=`echo "${arr[1]} > $ssim_th" | bc`
