@@ -10,7 +10,6 @@ Usage: $(basename "$0") [option] YUVfile (EncodedFile)
   -r VALUE    Frame rate
   -c String   Used codec by encoding (libx264, hevc, libvpx-vp9, {libaom-av1})
 EOM
-lib
   exit 2
 }
 
@@ -22,8 +21,12 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
+mkdir -p ../video
+mkdir -p ../log
 ref_file="../video/ref.mp4"
 encoded_file="../video/encoded_output.mp4"
+
+# デフォルト設定
 width=3840
 height=2160
 framerate=29.97

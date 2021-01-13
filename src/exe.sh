@@ -21,8 +21,12 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
+mkdir -p ../video
+mkdir -p ../log
 ref_file="../video/ref.mp4"
 encoded_file="../video/encoded_output.mp4"
+
+# デフォルト設定
 width=3840
 height=2160
 framerate=29.97
@@ -87,7 +91,6 @@ fi
 
 DATE=`date "+%Y%m%d-%H:%M:%S"`
 echo $DATE
-mkdir -p ../log
 
 # psnr & ssim
 echo "PSNR Process"
